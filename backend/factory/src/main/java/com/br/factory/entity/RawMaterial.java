@@ -13,9 +13,6 @@ public class RawMaterial {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(unique = true, nullable = false)
     private Long code;
 
     @Column(nullable = false)
@@ -27,18 +24,15 @@ public class RawMaterial {
     public RawMaterial() {
     }
 
-    public RawMaterial(Long id, String name, Integer stockQuantity) {
-        this.id = id;
+    public RawMaterial(Long code, String name, Integer stockQuantity) {
+        this.code = code;
         this.name = name;
         this.stockQuantity = stockQuantity;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public RawMaterial(String name, Integer stockQuantity) {
+        this.name = name;
+        this.stockQuantity = stockQuantity;
     }
 
     public String getName() {

@@ -1,7 +1,7 @@
 package com.br.factory.dto.production;
 
 public record ProductionItem(
-    Long productId,
+    Long productCode,
     String productName,
     Integer quantityToProduce,
     Double unitValue,

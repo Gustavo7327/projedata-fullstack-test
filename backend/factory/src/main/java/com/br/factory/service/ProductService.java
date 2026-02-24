@@ -25,7 +25,6 @@ public class ProductService {
 
     public Product createProduct(ProductRequest dto) {
         Product product = dto.toEntity();
-        product.setCode(dto.code());
         Product savedProduct = productRepository.save(product);
 
         if (dto.compositions() != null && !dto.compositions().isEmpty()) {
@@ -38,11 +37,11 @@ public class ProductService {
     }
 
 
-    public Product updateProduct(ProductUpdate dto, Long id) {
-        Optional<Product> optional = productRepository.findById(id);
+    public Product updateProduct(ProductUpdate dto, Long code) {
+        Optional<Product> optional = productRepository.findById(code);
 
         if (optional.isEmpty()) {
-            throw new ResourceNotFoundException("Product", id.toString());
+            throw new ResourceNotFoundException("Product", code.toString());
         }
         Product product = optional.get();
 
@@ -58,9 +57,9 @@ public class ProductService {
     }
 
 
-    public Product findProductById(Long id) {
-        return productRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Product", id.toString()));
+    public Product findProductByCode(Long code) {
+        return productRepository.findById(code)
+            .orElseThrow(() -> new ResourceNotFoundException("Product", code.toString()));
     }
 
 
@@ -69,10 +68,10 @@ public class ProductService {
     }
 
 
-    public void deleteProduct(Long id) {
-        if (!productRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Product", id.toString());
+    public void deleteProduct(Long code) {
+        if (!productRepository.existsById(code)) {
+            throw new ResourceNotFoundException("Product", code.toString());
         }
-        productRepository.deleteById(id);
+        productRepository.deleteById(code);
     }
 }

@@ -16,11 +16,11 @@ public class ProductComposition {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_code", referencedColumnName = "code")
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "raw_material_id")
+    @JoinColumn(name = "raw_material_code", referencedColumnName = "code")
     private RawMaterial rawMaterial;
 
     private Integer quantityRequired;

@@ -38,9 +38,9 @@ public class RawMaterialController {
     }
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity<RawMaterialResponse> getRawMaterialById(@PathVariable Long id) {
-        RawMaterial rawMaterial = rawMaterialService.findRawMaterialById(id);
+    @GetMapping("/{code}")
+    public ResponseEntity<RawMaterialResponse> getRawMaterialById(@PathVariable Long code) {
+        RawMaterial rawMaterial = rawMaterialService.findRawMaterialByCode(code);
         return ResponseEntity.ok(RawMaterialResponse.fromEntity(rawMaterial));
     }
 
@@ -55,19 +55,19 @@ public class RawMaterialController {
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping("/{code}")
     public ResponseEntity<RawMaterialResponse> updateRawMaterial(
-        @PathVariable Long id,
+        @PathVariable Long code,
         @Valid @RequestBody RawMaterialUpdate dto
     ) {
-        RawMaterial rawMaterial = rawMaterialService.updateRawMaterial(dto, id);
+        RawMaterial rawMaterial = rawMaterialService.updateRawMaterial(dto, code);
         return ResponseEntity.ok(RawMaterialResponse.fromEntity(rawMaterial));
     }
     
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRawMaterial(@PathVariable Long id) {
-        rawMaterialService.deleteRawMaterial(id);
+    @DeleteMapping("/{code}")
+    public ResponseEntity<Void> deleteRawMaterial(@PathVariable Long code) {
+        rawMaterialService.deleteRawMaterial(code);
         return ResponseEntity.noContent().build();
     }
 }

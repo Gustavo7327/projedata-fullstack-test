@@ -27,11 +27,11 @@ public class RawMaterialService {
     }
 
 
-    public RawMaterial updateRawMaterial(RawMaterialUpdate dto, Long id) {
-        Optional<RawMaterial> optional = rawMaterialRepository.findById(id);
+    public RawMaterial updateRawMaterial(RawMaterialUpdate dto, Long code) {
+        Optional<RawMaterial> optional = rawMaterialRepository.findById(code);
 
         if (optional.isEmpty()) {
-            throw new ResourceNotFoundException("RawMaterial", id.toString());
+            throw new ResourceNotFoundException("RawMaterial", code.toString());
         }
         RawMaterial rawMaterial = optional.get();
 
@@ -45,8 +45,8 @@ public class RawMaterialService {
     }
 
 
-    public RawMaterial findRawMaterialById(Long id) {
-        RawMaterial rawMaterial = rawMaterialRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("RawMaterial", id.toString()));
+    public RawMaterial findRawMaterialByCode(Long code) {
+        RawMaterial rawMaterial = rawMaterialRepository.findById(code).orElseThrow(() -> new ResourceNotFoundException("RawMaterial", code.toString()));
         return rawMaterial;
     }
 
@@ -56,10 +56,10 @@ public class RawMaterialService {
     }
 
 
-    public void deleteRawMaterial(Long id) {
-        if (!rawMaterialRepository.existsById(id)) {
-            throw new ResourceNotFoundException("RawMaterial", id.toString());
+    public void deleteRawMaterial(Long code) {
+        if (!rawMaterialRepository.existsById(code)) {
+            throw new ResourceNotFoundException("RawMaterial", code.toString());
         }
-        rawMaterialRepository.deleteById(id);
+        rawMaterialRepository.deleteById(code);
     }
 }

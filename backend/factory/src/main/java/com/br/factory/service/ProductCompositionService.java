@@ -27,8 +27,8 @@ public class ProductCompositionService {
     }
 
     public ProductComposition addComposition(Product product, ProductCompositionRequest dto) {
-        RawMaterial rawMaterial = rawMaterialRepository.findById(dto.rawMaterialId())
-            .orElseThrow(() -> new ResourceNotFoundException("RawMaterial", dto.rawMaterialId().toString()));
+        RawMaterial rawMaterial = rawMaterialRepository.findById(dto.rawMaterialCode())
+            .orElseThrow(() -> new ResourceNotFoundException("RawMaterial", dto.rawMaterialCode().toString()));
 
         ProductComposition composition = new ProductComposition();
         composition.setProduct(product);
@@ -38,16 +38,16 @@ public class ProductCompositionService {
         return productCompositionRepository.save(composition);
     }
 
-    public List<ProductComposition> getCompositionsByProduct(Long productId) {
-        return productCompositionRepository.findByProductId(productId);
+    public List<ProductComposition> getCompositionsByProduct(Long productCode) {
+        return productCompositionRepository.findByProductCode(productCode);
     }
 
     public ProductComposition updateComposition(Long compositionId, ProductCompositionRequest dto) {
         ProductComposition composition = productCompositionRepository.findById(compositionId)
             .orElseThrow(() -> new ResourceNotFoundException("Composition", compositionId.toString()));
 
-        RawMaterial rawMaterial = rawMaterialRepository.findById(dto.rawMaterialId())
-            .orElseThrow(() -> new ResourceNotFoundException("RawMaterial", dto.rawMaterialId().toString()));
+        RawMaterial rawMaterial = rawMaterialRepository.findById(dto.rawMaterialCode())
+            .orElseThrow(() -> new ResourceNotFoundException("RawMaterial", dto.rawMaterialCode().toString()));
 
         composition.setRawMaterial(rawMaterial);
         composition.setQuantityRequired(dto.quantityRequired());

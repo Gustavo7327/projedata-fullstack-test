@@ -40,16 +40,10 @@ class ProductionCalculationServiceTests {
     @BeforeEach
     void setUp() {
         rawMaterial1 = new RawMaterial(1L, "Iron", 100);
-        rawMaterial1.setCode(101L);
-        
         rawMaterial2 = new RawMaterial(2L, "Copper", 50);
-        rawMaterial2.setCode(102L);
 
         product1 = new Product(1L, "Steel Plate", 50.0);
-        product1.setCode(201L);
-        
         product2 = new Product(2L, "Brass Gear", 100.0);
-        product2.setCode(202L);
     }
 
     @Test
@@ -70,9 +64,9 @@ class ProductionCalculationServiceTests {
 
         assertThat(response).isNotNull();
         assertThat(response.suggestions()).isNotEmpty();
-        assertThat(response.suggestions().get(0).productId()).isEqualTo(1L);
-        assertThat(response.suggestions().get(0).quantityToProduce()).isEqualTo(10); 
-        assertThat(response.suggestions().get(0).totalValue()).isEqualTo(500.0); 
+        assertThat(response.suggestions().get(0).productCode()).isEqualTo(1L);
+        assertThat(response.suggestions().get(0).quantityToProduce()).isEqualTo(10);
+        assertThat(response.suggestions().get(0).totalValue()).isEqualTo(500.0);
         assertThat(response.totalValue()).isEqualTo(500.0);
     }
 
@@ -150,7 +144,7 @@ class ProductionCalculationServiceTests {
     }
 
     @Test
-    @DisplayName("Should return empty suggestions when no raw materials available")
+    @DisplayName("Should return suggestions when exact stock matches requirement")
     void testInsufficientRawMaterials() {
         ProductComposition composition1 = new ProductComposition(
             null,
@@ -201,7 +195,7 @@ class ProductionCalculationServiceTests {
         ProductionSuggestionResponse response = productionCalculationService.calculateOptimalProduction();
 
         assertThat(response.suggestions()).isNotEmpty();
-        assertThat(response.suggestions().get(0).productId()).isEqualTo(2L);
+        assertThat(response.suggestions().get(0).productCode()).isEqualTo(2L);
         assertThat(response.suggestions().get(0).unitValue()).isEqualTo(100.0);
     }
 

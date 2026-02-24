@@ -11,14 +11,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public record ProductRequest(
-    @NotNull(message = "Code is required") Long code,
     @NotBlank(message = "Name is required") String name,
     @NotNull(message = "Value is required") @Positive(message = "Value must be positive") Double value,
     @Valid List<ProductCompositionRequest> compositions
 ) {
     
     public Product toEntity() {
-        return new Product(null, name, value);
+        return new Product(name, value);
     }
 }
 

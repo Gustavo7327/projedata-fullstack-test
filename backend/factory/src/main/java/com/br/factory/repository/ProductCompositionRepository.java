@@ -10,5 +10,5 @@ import com.br.factory.entity.ProductComposition;
 @Repository
 public interface ProductCompositionRepository extends JpaRepository<ProductComposition, Long>{
     
-    List<ProductComposition> findByProductId(Long productId);
+    List<ProductComposition> findByProductCode(Long productCode);
 }

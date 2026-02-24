@@ -55,7 +55,7 @@ public class ProductionCalculationService {
 
                 if (maxQuantity > 0) {
                     ProductionItem item = new ProductionItem(
-                        product.getId(),
+                        product.getCode(),
                         product.getName(),
                         maxQuantity,
                         product.getValue(),
@@ -92,9 +92,9 @@ public class ProductionCalculationService {
 
         int maxQuantity = Integer.MAX_VALUE;
 
-        for (ProductComposition composition : product.getCompositions()) {
-            Long rawMaterialId = composition.getRawMaterial().getId();
-            Integer availableStock = stock.getOrDefault(rawMaterialId, 0);
+            for (ProductComposition composition : product.getCompositions()) {
+            Long rawMaterialCode = composition.getRawMaterial().getCode();
+            Integer availableStock = stock.getOrDefault(rawMaterialCode, 0);
             Integer required = composition.getQuantityRequired();
 
             int possibleQuantity = availableStock / required;
@@ -107,10 +107,10 @@ public class ProductionCalculationService {
     
     private void deductStock(Product product, Integer quantity, Map<Long, Integer> stock) {
         for (ProductComposition composition : product.getCompositions()) {
-            Long rawMaterialId = composition.getRawMaterial().getId();
-            Integer currentStock = stock.getOrDefault(rawMaterialId, 0);
+            Long rawMaterialCode = composition.getRawMaterial().getCode();
+            Integer currentStock = stock.getOrDefault(rawMaterialCode, 0);
             Integer deduction = composition.getQuantityRequired() * quantity;
-            stock.put(rawMaterialId, currentStock - deduction);
+            stock.put(rawMaterialCode, currentStock - deduction);
         }
     }
 
@@ -120,7 +120,7 @@ public class ProductionCalculationService {
         List<RawMaterial> rawMaterials = rawMaterialService.getAllRawMaterials();
 
         for (RawMaterial rawMaterial : rawMaterials) {
-            stock.put(rawMaterial.getId(), rawMaterial.getStockQuantity());
+            stock.put(rawMaterial.getCode(), rawMaterial.getStockQuantity());
         }
 
         return stock;

@@ -6,7 +6,6 @@ import com.br.factory.dto.productcomposition.ProductCompositionResponse;
 import com.br.factory.entity.Product;
 
 public record ProductResponse(
-    Long id,
     Long code,
     String name,
     Double value,
@@ -19,7 +18,6 @@ public record ProductResponse(
             .toList();
         
         return new ProductResponse(
-            product.getId(),
             product.getCode(),
             product.getName(),
             product.getValue(),
