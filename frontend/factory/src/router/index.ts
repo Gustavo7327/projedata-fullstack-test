@@ -16,6 +16,11 @@ const router = createRouter({
       component: () => import('../views/ProductsView.vue'),
     },
     {
+      path: '/products/new',
+      name: 'product-new',
+      component: () => import('../views/NewProductView.vue'),
+    },
+    {
       path: '/products/:code',
       name: 'product-detail',
       component: () => import('../views/ProductDetailView.vue'),
@@ -25,6 +30,11 @@ const router = createRouter({
       path: '/raw-materials',
       name: 'raw-materials',
       component: () => import('../views/RawMaterialsView.vue'),
+    },
+    {
+      path: '/raw-materials/new',
+      name: 'raw-material-new',
+      component: () => import('../views/NewRawMaterialView.vue'),
     },
     {
       path: '/raw-materials/:code',
