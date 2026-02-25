@@ -12,13 +12,6 @@ const navigateTo = (route: string) => {
 
 <template>
   <div class="home-container">
-    <header class="hero-section">
-      <div class="hero-content">
-        <h1 class="hero-title">{{ t('common.homeTitle') }}</h1>
-        <p class="hero-subtitle">{{ t('common.subtitle') }}</p>
-        <p class="hero-description">{{ t('common.description') }}</p>
-      </div>
-    </header>
 
     <main class="main-content">
       <section class="info-section">
@@ -80,47 +73,15 @@ const navigateTo = (route: string) => {
   flex: 1;
 }
 
-.hero-section {
-  padding: 60px 20px;
-  text-align: center;
-  color: #343434;
-}
-
-.hero-content {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.hero-title {
-  font-size: clamp(2rem, 8vw, 3.5rem);
-  font-weight: 800;
-  margin: 0 0 20px 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.hero-subtitle {
-  font-size: clamp(1.2rem, 4vw, 1.5rem);
-  font-weight: 600;
-  margin: 0 0 15px 0;
-  opacity: 0.95;
-}
-
-.hero-description {
-  font-size: clamp(1rem, 3vw, 1.1rem);
-  margin: 0;
-  opacity: 0.85;
-  line-height: 1.6;
-}
-
 .main-content {
   flex: 1;
-  padding: 60px 20px;
+  padding: 20px 20px;
   background: white;
 }
 
 .info-section {
   max-width: 1000px;
-  margin: 0 auto 60px;
+  margin: 0 auto 24px;
   padding: 40px;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   border-radius: 12px;
@@ -149,7 +110,7 @@ const navigateTo = (route: string) => {
   text-align: center;
   color: #333;
   font-size: 2.5rem;
-  margin: 0 0 50px 0;
+  margin: 0 0 24px 0;
 }
 
 .features-grid {
