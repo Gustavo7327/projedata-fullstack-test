@@ -8,16 +8,20 @@ import org.springframework.stereotype.Service;
 import com.br.factory.dto.rawmaterial.RawMaterialRequest;
 import com.br.factory.dto.rawmaterial.RawMaterialUpdate;
 import com.br.factory.entity.RawMaterial;
+import com.br.factory.exception.ConflictException;
 import com.br.factory.exception.ResourceNotFoundException;
+import com.br.factory.repository.ProductCompositionRepository;
 import com.br.factory.repository.RawMaterialRepository;
 
 @Service
 public class RawMaterialService {
     
     private final RawMaterialRepository rawMaterialRepository;
+    private final ProductCompositionRepository productCompositionRepository;
 
-    public RawMaterialService(RawMaterialRepository rawMaterialRepository) {
+    public RawMaterialService(RawMaterialRepository rawMaterialRepository, ProductCompositionRepository productCompositionRepository) {
         this.rawMaterialRepository = rawMaterialRepository;
+        this.productCompositionRepository = productCompositionRepository;
     }
 
 
@@ -60,6 +64,12 @@ public class RawMaterialService {
         if (!rawMaterialRepository.existsById(code)) {
             throw new ResourceNotFoundException("RawMaterial", code.toString());
         }
+        
+        var productCompositions = productCompositionRepository.findByRawMaterialCode(code);
+        if (!productCompositions.isEmpty()) {
+            throw new ConflictException("Cannot delete the raw material because " + productCompositions.size() + " product(s) using it exist");
+        }
+        
         rawMaterialRepository.deleteById(code);
     }
 }

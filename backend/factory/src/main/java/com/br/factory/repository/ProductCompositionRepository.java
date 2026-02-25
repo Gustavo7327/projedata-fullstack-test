@@ -11,4 +11,6 @@ import com.br.factory.entity.ProductComposition;
 public interface ProductCompositionRepository extends JpaRepository<ProductComposition, Long>{
     
     List<ProductComposition> findByProductCode(Long productCode);
+    
+    List<ProductComposition> findByRawMaterialCode(Long rawMaterialCode);
 }
