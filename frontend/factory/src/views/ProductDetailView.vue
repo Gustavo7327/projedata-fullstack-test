@@ -4,6 +4,8 @@ import { useRouter, useRoute } from 'vue-router'
 import { productService } from '@/services/productService'
 import type { ProductResponse, ProductUpdate } from '@/types'
 import { useI18n } from 'vue-i18n'
+import { useAlert } from '@/composables/useAlert'
+import { getErrorMessageFromHttpError } from '@/utils/handleHttpError'
 
 const {t} = useI18n()
 const router = useRouter()
@@ -40,6 +42,8 @@ const loadProduct = async () => {
   }
 }
 
+const { showAlert } = useAlert()
+
 const handleUpdate = async () => {
   loading.value = true
   error.value = null
@@ -47,9 +51,10 @@ const handleUpdate = async () => {
     const updated = await productService.updateProduct(code, formData.value)
     product.value = updated
     isEditing.value = false
-    alert('Produto atualizado com sucesso!')
+    showAlert(t('products.productUpdated'), '', 'success')
   } catch (err) {
-    error.value = 'Erro ao atualizar produto'
+    const message = getErrorMessageFromHttpError(err, (k: string) => t(k))
+    showAlert(message, t('common.error'), 'error')
     console.error(err)
   } finally {
     loading.value = false
@@ -62,10 +67,11 @@ const handleDelete = async () => {
     error.value = null
     try {
       await productService.deleteProduct(code)
-      alert('Produto deletado com sucesso!')
+      showAlert(t('products.productDeleted'), '', 'success')
       router.push({ name: 'products' })
     } catch (err) {
-      error.value = 'Erro ao deletar produto'
+      const message = getErrorMessageFromHttpError(err, (k: string) => t(k))
+      showAlert(message, t('common.error'), 'error')
       console.error(err)
     } finally {
       loading.value = false
@@ -84,7 +90,7 @@ onMounted(() => {
 
 <template>
   <div class="product-detail-page">
-    <button class="btn-back" @click="goBack">← Voltar</button>
+    <button class="btn-back" @click="goBack">← {{ t('common.back') }}</button>
 
     <div v-if="loading" class="loading">
       <p>Carregando...</p>
@@ -160,7 +166,7 @@ onMounted(() => {
             id="value"
             v-model.number="formData.value"
             type="number"
-            step="0.01"
+            step="0.1"
             min="0"
             required
           />

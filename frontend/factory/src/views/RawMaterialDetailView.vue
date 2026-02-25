@@ -4,6 +4,8 @@ import { useRouter, useRoute } from 'vue-router'
 import { rawMaterialService } from '@/services/rawMaterialService'
 import type { RawMaterialResponse, RawMaterialUpdate } from '@/types'
 import { useI18n } from 'vue-i18n'
+import { useAlert } from '@/composables/useAlert'
+import { getErrorMessageFromHttpError } from '@/utils/handleHttpError'
 
 const {t} = useI18n()
 const router = useRouter()
@@ -40,6 +42,8 @@ const loadRawMaterial = async () => {
   }
 }
 
+const { showAlert } = useAlert()
+
 const handleUpdate = async () => {
   loading.value = true
   error.value = null
@@ -47,9 +51,10 @@ const handleUpdate = async () => {
     const updated = await rawMaterialService.updateRawMaterial(code, formData.value)
     rawMaterial.value = updated
     isEditing.value = false
-    alert('Matéria-prima atualizada com sucesso!')
+    showAlert(t('rawMaterials.materialUpdated'), '', 'success')
   } catch (err) {
-    error.value = 'Erro ao atualizar matéria-prima'
+    const message = getErrorMessageFromHttpError(err, (k: string) => t(k))
+    showAlert(message, t('common.error'), 'error')
     console.error(err)
   } finally {
     loading.value = false
@@ -62,10 +67,11 @@ const handleDelete = async () => {
     error.value = null
     try {
       await rawMaterialService.deleteRawMaterial(code)
-      alert('Matéria-prima deletada com sucesso!')
+      showAlert(t('rawMaterials.materialDeleted'), '', 'success')
       router.push({ name: 'raw-materials' })
     } catch (err) {
-      error.value = 'Erro ao deletar matéria-prima'
+      const message = getErrorMessageFromHttpError(err, (k: string) => t(k))
+      showAlert(message, t('common.error'), 'error')
       console.error(err)
     } finally {
       loading.value = false
@@ -84,7 +90,7 @@ onMounted(() => {
 
 <template>
   <div class="raw-material-detail-page">
-    <button class="btn-back" @click="goBack">← Voltar</button>
+    <button class="btn-back" @click="goBack">← {{ t('common.back') }}</button>
 
     <div v-if="loading" class="loading">
       <p>Carregando...</p>

@@ -3,10 +3,13 @@ import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useProducts } from '@/composables/useProducts'
+import { useAlert } from '@/composables/useAlert'
+import { getErrorMessageFromHttpError } from '@/utils/handleHttpError'
 
 const router = useRouter()
 const { t } = useI18n()
-const { products, loading, error, loadProducts, deleteProduct } = useProducts()
+const { products, loading, error, loadProducts, deleteProduct, clearError } = useProducts()
+const { showAlert } = useAlert()
 
 onMounted(loadProducts)
 
@@ -18,9 +21,11 @@ const handleDelete = async (code: number) => {
   if (confirm(t('common.confirmDelete'))) {
     try {
       await deleteProduct(code)
-      alert(t('products.productDeleted'))
-    } catch {
-      alert(t('forms.errors.deletingFailed'))
+      showAlert(t('products.productDeleted'), '', 'success')
+    } catch (err) {
+      const message = getErrorMessageFromHttpError(err, (k: string) => t(k))
+      showAlert(message, t('common.error'), 'error')
+      clearError()
     }
   }
 }
@@ -146,7 +151,6 @@ const formatCurrency = (value: number): string => {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
 }
 
 .btn-sm {

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import NavigationHeader from './components/NavigationHeader.vue'
+import Alert from './components/Alert.vue'
 import { useI18n } from 'vue-i18n'
 import { onMounted } from 'vue'
 
@@ -20,6 +21,7 @@ onMounted(() => {
     <main class="main-content">
       <RouterView />
     </main>
+    <Alert />
   </div>
 </template>
 

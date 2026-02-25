@@ -50,6 +50,9 @@ export const en = {
     quantity: 'Quantity Required',
     addComposition: 'Add Raw Material',
     removeComposition: 'Remove',
+    selectRawMaterial: 'Select a raw material',
+    noCompositions: 'No compositions added. Add at least one raw material!',
+    selectCompositions: 'Please add at least one raw material to the composition',
     viewDetails: 'Details',
     editProduct: 'Edit Product',
     deleteProduct: 'Delete Product',
@@ -59,8 +62,7 @@ export const en = {
     createProduct: 'Create New Product',
     updateProduct: 'Edit Product',
     totalProducts: 'Total Products'
-  },
-  rawMaterials: {
+  },  rawMaterials: {
     title: 'Raw Materials Management',
     description: 'Manage your raw materials and their stock quantities',
     addNew: 'New Raw Material',
@@ -100,7 +102,8 @@ export const en = {
       loadingFailed: 'Failed to load data',
       savingFailed: 'Failed to save data',
       deletingFailed: 'Failed to delete item',
-      apiError: 'API Error'
+      apiError: 'API Error',
+      conflict: 'Cannot delete this item because it is used by a product.'
     },
     messages: {
       unsavedChanges: 'You have unsaved changes'

@@ -50,6 +50,9 @@ export const pt = {
     quantity: 'Quantidade Necessária',
     addComposition: 'Adicionar Matéria-prima',
     removeComposition: 'Remover',
+    selectRawMaterial: 'Selecione uma matéria-prima',
+    noCompositions: 'Nenhuma composição adicionada. Adicione pelo menos uma matéria-prima!',
+    selectCompositions: 'Por favor, adicione pelo menos uma matéria-prima à composição',
     viewDetails: 'Detalhes',
     editProduct: 'Editar Produto',
     deleteProduct: 'Deletar Produto',
@@ -59,8 +62,7 @@ export const pt = {
     createProduct: 'Criar Novo Produto',
     updateProduct: 'Editar Produto',
     totalProducts: 'Total de Produtos'
-  },
-  rawMaterials: {
+  },  rawMaterials: {
     title: 'Gerenciamento de Matérias-primas',
     description: 'Gerencie suas matérias-primas e quantidades em estoque',
     addNew: 'Nova Matéria-prima',
@@ -100,7 +102,8 @@ export const pt = {
       loadingFailed: 'Falha ao carregar dados',
       savingFailed: 'Falha ao salvar dados',
       deletingFailed: 'Falha ao deletar item',
-      apiError: 'Erro na API'
+      apiError: 'Erro na API',
+      conflict: 'Não é possível deletar este item pois ele é utilizado por um produto.'
     },
     messages: {
       unsavedChanges: 'Você tem alterações não salvas'
