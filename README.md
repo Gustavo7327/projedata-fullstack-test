@@ -119,6 +119,12 @@ pnpm install
 pnpm dev
 ```
 
+### 3.5 Execução de testes com Cypress
+
+```bash
+pnpm cy:run
+```
+
 O frontend estará disponível em: **http://localhost:5173**
 
 ## 4. Acessar a Aplicação
@@ -142,7 +148,7 @@ O frontend estará disponível em: **http://localhost:5173**
 
 ```bash
 cd backend/factory
-docker-compose down
+docker compose down
 ```
 
 ### Parar o frontend
