@@ -36,4 +36,41 @@
 //   }
 // }
 
+Cypress.Commands.add('fillRawMaterialForm', (name: string, stock: number) => {
+  cy.get('#name').clear().type(name)
+  cy.get('#stockQuantity').clear().type(stock.toString())
+  cy.get('button[type=submit]').click()
+})
+
+Cypress.Commands.add('fillProductForm', (name: string, value: number) => {
+  cy.get('#name').clear().type(name)
+  cy.get('#value').clear().type(value.toString())
+})
+
+Cypress.Commands.add('addComposition', (material: string, quantity: number) => {
+  cy.get('#rawMaterial option').contains(material).then(($opt) => {
+    const val = $opt.attr('value')
+    if (val) cy.get('#rawMaterial').select(val)
+  })
+  cy.get('#quantity').clear().type(quantity.toString())
+  cy.contains('button', /adicionar matéria-prima|add composition/i).click()
+})
+
+Cypress.Commands.add('switchLanguage', (lang: 'pt' | 'en') => {
+  const label = lang === 'pt' ? 'PT' : 'EN'
+  cy.get('.lang-btn').contains(label).click()
+})
+
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      fillRawMaterialForm(name: string, stock: number): Chainable<void>
+      fillProductForm(name: string, value: number): Chainable<void>
+      addComposition(material: string, quantity: number): Chainable<void>
+      switchLanguage(lang: 'pt' | 'en'): Chainable<void>
+    }
+  }
+}
+
 export {}
